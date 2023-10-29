@@ -9,14 +9,9 @@ use std::os::raw::*;
 use std::ptr;
 
 use gl::types::*;
+use crate::graphics::primitives::*;
 
 use cgmath::*;
-
-pub struct Vertex {
-    x : f32,
-    y : f32,
-    z : f32,
-}
 
 pub struct Vao {
     id: gl::types::GLuint,
@@ -85,10 +80,21 @@ impl BufferObject {
         unsafe {
             gl::BufferData(
                 self.r#type,
-                (data.len() * mem::size_of::<gl::types::GLfloat>()) as gl::types::GLsizeiptr,
+                (data.len() * mem::size_of::<gl::types::GLint>()) as gl::types::GLsizeiptr,
                 &data[0] as *const i32 as *const c_void,
                 self.usage,
             );
+        }
+    }
+
+    pub fn store_vertex_data(&self, data: &[Vertex]) {
+        unsafe {
+            gl::BufferData(
+                self.r#type,
+                (data.len() * mem::size_of::<Vertex>()) as gl::types::GLsizeiptr,
+                &data[0] as *const Vertex as *const c_void,
+                self.usage,
+            )
         }
     }
     

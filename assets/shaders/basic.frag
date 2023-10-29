@@ -1,10 +1,10 @@
 #version 330 core
 out vec4 Color;
 in VS_OUTPUT {
-        vec3 Pos;
+        vec4 clr;
 } IN;
 
 void main()
 {
-    Color = vec4(0.0f, IN.Pos.x , IN.Pos.y , 1.0f);
+    Color = vec4(0.0,0.0,1.0,1.0);
 }
